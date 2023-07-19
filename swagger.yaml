@@ -1,0 +1,103 @@
+openapi: 3.0.0
+info:
+  title: Scraping API Collection
+  version: 1.0.0
+  description: API Collection for Selenium Automation
+servers:
+  - url: http://localhost:3000
+apis:
+  - ./routers/*.js
+tags:
+  - name: Authentication
+    description: Authentication Endpoints for B2C
+
+paths:
+  /authentication/sign-up:
+    post:
+      tags:
+        - Authentication
+      summary: Sign up for a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                studentName:
+                  type: string
+                schoolName:
+                  type: string
+                grade:
+                  type: string
+                state:
+                  type: string
+                country:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+
+              example:
+                studentName: Chirag
+                schoolName: Don Bosco
+                grade: 11
+                state: New Delhi
+                country: India
+                email: chiragsharma1906@gmail.com
+                password: Chirag@123
+
+      responses:
+        '200':
+          description: Passed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sucess:
+                    type: string
+              example:
+                success: Passed Middleware...
+
+  /authentication/verify:
+    post:
+      tags:
+        - Authentication
+      summary: Verify your existing user.
+      parameters:
+        - name: verificationId
+          in: query
+          description: verificationId found while sign-up
+          required: true
+          schema:
+            type: string
+      responses:
+        202:
+          description: Success
+
+  /authentication/login:
+    post:
+      tags:
+        - Authentication
+      summary: Login with user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+
+              example:
+                email: chiragsharma1906@gmail.com
+                password: Chirag@123
+
+      responses:
+        200:
+          description: Success
