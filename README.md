@@ -26,3 +26,7 @@ Explaining directory structure.
   - `blogic` : Blogic for each router implementation, in case implementation of `router.*.js` involves multiple logic or gets cumbersome, it can be moved into blogic for sake or clarity or additional layer of business seperation. For `router.*.js` file corrosponding blogic file will be `blogic/blogic.*.js`. For example, blogic file for `router.B2B.Authentication.js` and `router.B2B.Authentication.js` is `blogic/blogic.authentication.js`, ideally there should be two blogic file seperately for `B2B.Authentication` and `B2C.Authentication`, this can be incorporated later on.
   - `middleware/` : Similarly middleware logic are contained in `middleware/middleware.*.js` for corrosponding `router.*.js` file, currently `router.B2B.Authentication.js` and `router.B2C.Authentication.js` both have same `middleware/middleware.authentication.js` as both use this module commonly.
   - `uploads/` : Contains all the uploaded session files.
+
+## B2B Architecture Diagram
+
+![B2B-Image](src/B2B.png)

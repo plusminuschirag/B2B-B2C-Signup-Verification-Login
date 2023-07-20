@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 
 const b2cSignupSchema = mongoose.Schema({
-  studentName: { type: String, required: true },
+  userId: { type: String, required: true },
+  userName: { type: String, required: true },
   schoolName: { type: String, required: true },
   grade: { type: String, required: true },
   state: { type: String, required: true },
@@ -18,6 +19,7 @@ const b2cSignupSchema = mongoose.Schema({
 });
 
 const b2cLoginSchema = mongoose.Schema({
+  userId: { type: String, required: true },
   email: { type: String, required: true },
   password: { type: String, required: true },
 });

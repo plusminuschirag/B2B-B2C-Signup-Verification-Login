@@ -24,7 +24,7 @@ paths:
             schema:
               type: object
               properties:
-                studentName:
+                userName:
                   type: string
                 schoolName:
                   type: string
@@ -40,7 +40,7 @@ paths:
                   type: string
 
               example:
-                studentName: Chirag
+                userName: Chirag
                 schoolName: Don Bosco
                 grade: 11
                 state: New Delhi

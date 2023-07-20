@@ -20,7 +20,7 @@ const bcryptSalt = bcrypt.genSaltSync(parseInt(process.env.BCRYPT_SALT));
 const router = Router();
 
 router.post('/sign-up', b2cSignupMiddleware, async (req, res) => {
-  const { studentName, schoolName, grade, state, country, email, password } =
+  const { userName, schoolName, grade, state, country, email, password } =
     req.body;
 
   try {
@@ -35,9 +35,10 @@ router.post('/sign-up', b2cSignupMiddleware, async (req, res) => {
       };
 
       const hashedPassword = bcrypt.hashSync(password, bcryptSalt);
-
+      const userId = uuidv4();
       const newUser = await b2cSignUpModel({
-        studentName,
+        userId,
+        userName,
         schoolName,
         grade,
         state,
@@ -83,6 +84,7 @@ router.post('/verify', async (req, res) => {
 
       try {
         const loginUser = b2cLoginModel({
+          userId: user.userId,
           email: user.email,
           password: user.password,
         });
