@@ -23,6 +23,7 @@ const b2cLoginSchema = mongoose.Schema({
 });
 
 const b2bTeacherSignupSchema = mongoose.Schema({
+  teacherId: { type: String, required: true },
   teacherName: { type: String, required: true },
   schoolName: { type: String, required: true },
   grade: { type: String, required: true },
@@ -40,6 +41,7 @@ const b2bTeacherSignupSchema = mongoose.Schema({
 });
 
 const b2bTeacherLoginSchema = mongoose.Schema({
+  teacherId: { type: String, required: true },
   email: { type: String, required: true },
   password: { type: String, required: true },
 });
@@ -47,10 +49,11 @@ const b2bTeacherLoginSchema = mongoose.Schema({
 const b2bTCSSchema = mongoose.Schema({
   teacherId: { type: String, required: true },
   classId: { type: String, required: true },
-  studentId: { type: Object, required: true },
+  studentIds: { type: Object, required: true },
 });
 
 const b2bStudentSignupSchema = mongoose.Schema({
+  studentId: { type: String, required: true },
   classId: { type: String, required: true },
   studentName: { type: String, required: true },
   schoolName: { type: String, required: true },
@@ -69,6 +72,7 @@ const b2bStudentSignupSchema = mongoose.Schema({
 });
 
 const b2bStudentLoginSchema = mongoose.Schema({
+  studentId: { type: String, required: true },
   email: { type: String, required: true },
   password: { type: String, required: true },
 });

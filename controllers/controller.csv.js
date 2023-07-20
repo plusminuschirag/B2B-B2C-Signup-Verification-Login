@@ -23,7 +23,7 @@ const __readCsvFile = async (filePath) => {
 const getDataFromCsv = async (filePath) => {
   try {
     const csvData = await __readCsvFile(filePath);
-    logger.info('CSV Read: ', JSON.stringify(csvData, 2));
+    logger.info(JSON.stringify(csvData));
     return csvData;
   } catch (error) {
     logger.error('Error reading csv file : ', error.stack.toString());

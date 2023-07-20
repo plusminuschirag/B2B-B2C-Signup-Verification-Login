@@ -257,39 +257,38 @@ paths:
                 csvFile:
                   type: string
                   format: binary
+                teacherId:
+                  type: string
+
       responses:
         '200':
           description: Data uploaded
-  /b2b-authentication/student-signup:
-    post:
-      tags:
-        - Authentication
-      summary: Create a new student account
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                # Define properties for student signup
-      responses:
-        '201':
-          description: Student created
-        # Define other possible responses
-  /b2b-authentication/student-verification:
+  # /b2b-authentication/student-signup:
+  #   post:
+  #     tags:
+  #       - Authentication
+  #     summary: Create a new student account
+  #     requestBody:
+  #       required: true
+  #       content:
+  #         application/json:
+  #           schema:
+  #             type: object
+  #             properties:
+  #     responses:
+  #       '201':
+  #         description: Student created
+  # Define other possible responses
+  /b2b-authentication/student-verify:
     post:
       tags:
         - Authentication
       summary: Verify student account
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                # Define properties for student verification
+      parameters:
+        - in: query
+          name: verificationId
+          schema:
+            type: string
       responses:
         '200':
           description: Student verified
