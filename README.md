@@ -30,3 +30,7 @@ Explaining directory structure.
 ## B2B Architecture Diagram
 
 ![B2B-Image](src/B2B.png)
+
+## B2C Architecture Diagram
+
+![B2B-Image](src/B2C.png)
