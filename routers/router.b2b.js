@@ -91,7 +91,7 @@ router.post('/teacher-verify', async (req, res) => {
         });
         await loginTeacher.save();
         res.status(202).json({
-          success: 'Teacher Verified Successfuly, now you can login.',
+          success: 'Teacher Verified Successfully, now you can login.',
         });
       } catch (error) {
         logger.error(`Error while doing db operation : ${error.toString()}`);
@@ -219,7 +219,7 @@ router.post('/student-verify', async (req, res) => {
         });
         await loginStudent.save();
         res.status(202).json({
-          success: 'Student Verified Successfuly, now you can login.',
+          success: 'Student Verified Successfully, now you can login.',
         });
       } catch (error) {
         logger.error(`Error while doing db operation : ${error.toString()}`);

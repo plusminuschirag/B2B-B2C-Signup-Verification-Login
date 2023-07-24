@@ -91,7 +91,7 @@ router.post('/verify', async (req, res) => {
         await loginUser.save();
         res
           .status(202)
-          .json({ success: 'User Verified Successfuly, now you can login.' });
+          .json({ success: 'User Verified Successfully, now you can login.' });
       } catch (error) {
         logger.error(`Error while doing db operation : ${error.toString()}`);
         res.status(400).json({ error: 'Login Credentials failed...' });

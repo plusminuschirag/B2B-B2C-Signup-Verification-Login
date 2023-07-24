@@ -2,8 +2,9 @@ const swaggerUi = require('swagger-ui-express');
 const fs = require('fs');
 const yaml = require('js-yaml');
 const express = require('express');
-const b2cAuthenticationRouter = require('./routers/router.B2C.Authentication');
-const b2bAuthenticationRouter = require('./routers/router.B2B.Authentication');
+const b2cRouter = require('./routers/router.b2c');
+const b2bRouter = require('./routers/router.b2b');
+const adminRouter = require('./routers/router.admin');
 const mongoController = require('./controllers/controller.db');
 
 const app = express();
@@ -20,8 +21,9 @@ app.use(
   swaggerUi.setup(swaggerSpec, { explorer: true })
 );
 
-app.use('/b2c-authentication', b2cAuthenticationRouter);
-app.use('/b2b-authentication', b2bAuthenticationRouter);
+app.use('/b2c', b2cRouter);
+app.use('/b2b', b2bRouter);
+app.use('/admin', adminRouter);
 
 app.get('/', (req, res) => {
   res.send('Hello World!');

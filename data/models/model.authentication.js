@@ -79,6 +79,25 @@ const b2bStudentLoginSchema = mongoose.Schema({
   password: { type: String, required: true },
 });
 
+const adminSignupSchema = mongoose.Schema({
+  adminId: { type: String, required: true },
+  date: { type: Date, default: Date.now },
+  email: { type: String, required: true },
+  password: { type: String, required: true },
+  verificationMeta: {
+    verificationId: { type: String },
+    verified: { type: Boolean },
+    verificationStartTimestamp: { type: Date, default: Date.now },
+    verifiedTimestamp: { type: Date },
+  },
+});
+
+const adminLoginSchema = mongoose.Schema({
+  adminId: { type: String, required: true },
+  email: { type: String, required: true },
+  password: { type: String, required: true },
+});
+
 const b2cSignUpModel = mongoose.model(
   'b2c.authentication.signup',
   b2cSignupSchema
@@ -113,6 +132,16 @@ const b2bStudentLoginModel = mongoose.model(
   b2bStudentLoginSchema
 );
 
+const adminSignupModel = mongoose.model(
+  'admin.authentication.admin.signup',
+  adminSignupSchema
+);
+
+const adminLoginModel = mongoose.model(
+  'admin.authentication.admin.login',
+  adminLoginSchema
+);
+
 module.exports = {
   b2cSignUpModel,
   b2cLoginModel,
@@ -121,4 +150,6 @@ module.exports = {
   b2bTeacherClassStudentModel,
   b2bStudentSignupModel,
   b2bStudentLoginModel,
+  adminSignupModel,
+  adminLoginModel,
 };

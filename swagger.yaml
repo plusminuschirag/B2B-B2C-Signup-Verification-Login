@@ -8,14 +8,18 @@ servers:
 apis:
   - ./routers/*.js
 tags:
-  - name: Authentication
-    description: Authentication Endpoints for B2C
+  - name: B2B
+    description: Endpoints for B2B
+  - name: B2C
+    description: Endpoints for B2C
+  - name: Admin
+    description: Endpoints for Admin
 
 paths:
-  /b2c-authentication/sign-up:
+  /b2c/sign-up:
     post:
       tags:
-        - Authentication
+        - B2C
       summary: Sign up for a new user
       requestBody:
         required: true
@@ -61,10 +65,10 @@ paths:
               example:
                 success: Passed Middleware...
 
-  /b2c-authentication/verify:
+  /b2c/verify:
     post:
       tags:
-        - Authentication
+        - B2C
       summary: Verify your existing user.
       parameters:
         - name: verificationId
@@ -77,10 +81,10 @@ paths:
         202:
           description: Success
 
-  /b2c-authentication/login:
+  /b2c/login:
     post:
       tags:
-        - Authentication
+        - B2C
       summary: Login with user
       requestBody:
         required: true
@@ -102,10 +106,10 @@ paths:
         200:
           description: Success
 
-  /b2b-authentication/teacher-signup:
+  /b2b/teacher-signup:
     post:
       tags:
-        - Authentication
+        - B2B
       summary: Create a new teacher account
       requestBody:
         required: true
@@ -166,10 +170,10 @@ paths:
                 properties:
                   error:
                     type: string
-  /b2b-authentication/teacher-verify:
+  /b2b/teacher-verify:
     post:
       tags:
-        - Authentication
+        - B2B
       summary: Verify teacher account
       parameters:
         - in: query
@@ -204,10 +208,10 @@ paths:
                 properties:
                   error:
                     type: string
-  /b2b-authentication/teacher-login:
+  /b2b/teacher-login:
     post:
       tags:
-        - Authentication
+        - B2B
       summary: Login as a teacher
       requestBody:
         required: true
@@ -242,10 +246,10 @@ paths:
                 properties:
                   error:
                     type: string
-  /b2b-authentication/upload-students:
+  /b2b/upload-students:
     post:
       tags:
-        - Authentication
+        - B2B
       summary: Upload student data in csv
       requestBody:
         required: true
@@ -263,10 +267,10 @@ paths:
       responses:
         '200':
           description: Data uploaded
-  # /b2b-authentication/student-signup:
+  # /b2b/student-signup:
   #   post:
   #     tags:
-  #       - Authentication
+  #       - B2B
   #     summary: Create a new student account
   #     requestBody:
   #       required: true
@@ -279,10 +283,10 @@ paths:
   #       '201':
   #         description: Student created
   # Define other possible responses
-  /b2b-authentication/student-verify:
+  /b2b/student-verify:
     post:
       tags:
-        - Authentication
+        - B2B
       summary: Verify student account
       parameters:
         - in: query
@@ -293,10 +297,10 @@ paths:
         '200':
           description: Student verified
         # Define other possible responses
-  /b2b-authentication/student-login:
+  /b2b/student-login:
     post:
       tags:
-        - Authentication
+        - B2B
       summary: Login as a student
       requestBody:
         required: true
@@ -310,3 +314,105 @@ paths:
         '200':
           description: Successful login
         # Define other possible responses
+
+  /admin/sign-up:
+    post:
+      tags:
+        - Admin
+      summary: Sign up for a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+
+              example:
+                email: chiragsharma1906@gmail.com
+                password: Chirag@123
+
+      responses:
+        '200':
+          description: Passed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: string
+              example:
+                success: Passed Middleware...
+  /admin/verify:
+    post:
+      tags:
+        - Admin
+      summary: Verify the admin account with the given verification ID
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: verificationId
+          description: Verification ID received after sign-up
+          required: true
+          type: string
+      responses:
+        202:
+          description: Admin verified successfully, now you can login
+          schema:
+            type: object
+            properties:
+              success:
+                type: string
+        400:
+          description: Error while doing DB operation or login credentials failed
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+  /admin/login:
+    post:
+      tags:
+        - Admin
+      summary: Authenticate an admin user
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+              example:
+                email: chiragsharma1906@gmail.com
+                password: Chirag@123
+      responses:
+        200:
+          description: Admin logged in successfully
+          schema:
+            type: object
+            properties:
+              success:
+                type: string
+        400:
+          description: Email not present in the database or incorrect password
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
