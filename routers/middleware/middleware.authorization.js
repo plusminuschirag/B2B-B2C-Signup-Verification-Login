@@ -31,8 +31,13 @@ const adminJWTVerifyMiddleware = async (req, res, next) => {
       jwtToken,
       process.env.JWT_SECRET_TOKEN
     );
-    req.user = decodedToken;
-    next();
+    const { id, role } = decodedToken;
+    if (role !== 'admin') {
+      res.status(403).json({ message: 'Invalid Role' });
+    } else {
+      req.user = decodedToken;
+      next();
+    }
   } catch (err) {
     res.status(401).json({ message: 'Invalid Token' });
     logger.error(`JWT decoding error: ${err.toString()}`);
