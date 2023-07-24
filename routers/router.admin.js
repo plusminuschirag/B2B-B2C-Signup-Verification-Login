@@ -7,8 +7,13 @@ const {
   adminSignupMiddleware,
 } = require('./middleware/middleware.authentication');
 const {
+  adminJWTGenerateMiddleware,
+  adminJWTVerifyMiddleware,
+} = require('./middleware/middleware.authorization');
+const {
   adminSignupModel,
   adminLoginModel,
+  b2bTeacherSignupModel,
 } = require('../data/models/model.authentication.js');
 const logger = require('../controllers/controller.logger.js');
 
@@ -115,8 +120,22 @@ router.post('/login', async (req, res) => {
       .status(400)
       .json({ error: 'admin found but password is not matching.' });
   }
-  logger.info(`admin found: ${admin}`);
-  res.status(200).json({ success: 'Logged In' });
+  logger.info(`Admin found: ${admin}`);
+  const jwtToken = await adminJWTGenerateMiddleware(admin.adminId);
+  res.status(200).json({
+    success: 'Logged In, Use JWT in following admin requests',
+    jwtToken: jwtToken,
+  });
+});
+
+router.get('/teachers-list', adminJWTVerifyMiddleware, async (req, res) => {
+  logger.info('JWT Verified.');
+  const { id, role } = req.user;
+  const admin = await adminLoginModel.findOne({ adminId: id });
+  console.log(admin);
+
+  const allTeachers = await b2bTeacherSignupModel.find({});
+  res.status(201).json({ records: allTeachers });
 });
 
 module.exports = router;
